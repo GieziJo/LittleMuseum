@@ -31,19 +31,21 @@ class FormItem extends Component {
     componentDidMount(){
         const singleItem = this.props.singleItem;
         if(singleItem){
-            this.state.title = singleItem.title
-            this.state.artist = singleItem.artist
-            this.state.description = singleItem.description
-            this.state.publisher = singleItem.publisher
-            this.state.type = singleItem.type
-            this.state.size = singleItem.size
-            this.state.serial_number = singleItem.serial_number
-            this.state.price = singleItem.price
-            this.state.currency = singleItem.currency
-            this.state.caracteristics = singleItem.caracteristics
-            this.state.year = singleItem.year
-            this.state.signed = singleItem.signed
-            this.state.image_url = singleItem.image_url
+            this.setState({
+                title: singleItem.title,
+                artist: singleItem.artist,
+                description: singleItem.description,
+                publisher: singleItem.publisher,
+                type: singleItem.type,
+                size: singleItem.size,
+                serial_number: singleItem.serial_number,
+                price: singleItem.price,
+                currency: singleItem.currency,
+                caracteristics: singleItem.caracteristics,
+                year: singleItem.year,
+                signed: singleItem.signed,
+                image_url: singleItem.image_url
+            })
         }
     }
 

@@ -1,13 +1,4 @@
 import React, { Component } from 'react';
-import {
-    Form,
-    FormGroup,
-    Button,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup
-  } from 'reactstrap';
 
 import { connect } from 'react-redux';
 import {addItem} from '../actions/itemActions';

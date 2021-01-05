@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import {getItem, editItem} from '../actions/itemActions';
-import uuid from 'react-uuid';
 import FormItem from './FormItem';
 
 class EditItem extends Component {
