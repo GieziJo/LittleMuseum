@@ -1,0 +1,5 @@
+Create a default.json file here which looks like this and contains your keys:
+{
+    "mongoURI": "", // connection to the mongoDB database
+    "jwtSecret": "" // JWT secret for encription and decription
+}
