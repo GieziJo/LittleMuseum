@@ -15,8 +15,10 @@ class FormItem extends Component {
     state = {
         title: '',
         artist: '',
+        artist_id: '',
         description: '',
         publisher: '',
+        publisher_id: '',
         type: '',
         size: '',
         serial_number: '',
@@ -34,8 +36,10 @@ class FormItem extends Component {
             this.setState({
                 title: singleItem.title,
                 artist: singleItem.artist,
+                artist_id: singleItem.artist_id,
                 description: singleItem.description,
                 publisher: singleItem.publisher,
+                publisher_id: singleItem.publisher_id,
                 type: singleItem.type,
                 size: singleItem.size,
                 serial_number: singleItem.serial_number,
