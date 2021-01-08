@@ -62,7 +62,7 @@ class EditItem extends Component {
 
 const mapStateToProps = state => ({
     item: state.item,
-    singleItem: state.item.singleItem,
+    singleItem: state.item.singleItem
 });
 
-export default connect(mapStateToProps, { editItem, getItem})(EditItem);
+export default connect(mapStateToProps, { editItem, getItem })(EditItem);

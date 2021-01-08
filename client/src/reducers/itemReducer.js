@@ -5,7 +5,7 @@ import { GET_ITEM, GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from '../action
 const initialState = {
     items: [
         { id: uuid(), title: 'Bla', artist: 'you know', year: '2005', description: 'you know what'},
-        { id: uuid(), title: 'La joconde', artist: 'Michael Angelo', year: '1813', description: 'The best painting apparently', image_url: 'https://uploads7.wikiart.org/images/leonardo-da-vinci/mona-lisa.jpg'},
+        { id: uuid(), title: 'La joconde', artist: 'Michael Angelo', publisher: 'Some king?', year: '1813', description: 'The best painting apparently', image_url: 'https://uploads7.wikiart.org/images/leonardo-da-vinci/mona-lisa.jpg'},
         { id: uuid(), title: 'That makes sense', artist: 'Jep'},
         { id: uuid(), title: 'Trowing girl', artist: 'Banski', year: '2001', description: 'Girl throwing', image_url: 'https://images-na.ssl-images-amazon.com/images/I/51Q4fwAoFgL._AC_SL1423_.jpg'},
         { id: uuid(), title: 'Hmm, just a title?'},

@@ -8,6 +8,10 @@ import {
     InputGroupText,
     InputGroup
   } from 'reactstrap';
+  import { connect } from 'react-redux';
+  import AutocompleteWithPrompt from './AutocompleteWithPrompt';
+  import {getArtists, addArtist} from '../actions/artistActions';
+  import {getPublishers, addPublisher} from '../actions/publisherActions';
 
 
 class FormItem extends Component {
@@ -51,6 +55,8 @@ class FormItem extends Component {
                 image_url: singleItem.image_url
             })
         }
+        this.props.getArtists();
+        this.props.getPublishers();
     }
 
     onChange = (e) => {
@@ -64,7 +70,24 @@ class FormItem extends Component {
         this.props.onSubmit(this.state);
     }
 
+    handleSubmitArtist = (data) => {
+      this.props.addArtist({
+        name: data.name,
+        description: data.description
+      })
+    }
+
+    handleSubmitPublisher = (data) => {
+      this.props.addPublisher({
+        name: data.name,
+        description: data.description
+      })
+    }
+
     render() {
+        
+        const artist = this.props.artist;
+        const publisher = this.props.publisher;
         return(
             <Form onSubmit={this.onSubmit}>
                 <FormGroup>
@@ -73,24 +96,28 @@ class FormItem extends Component {
                         <Input type="text" name="title" defaultValue={this.state.title} id="" placeholder="Joconde" required onChange={this.onChange}/>
                     </InputGroup>
                 </FormGroup>
-                <FormGroup>
+                {/* <FormGroup>
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">Artist</InputGroupAddon>
                         <Input type="text" name="artist" defaultValue={this.state.artist} id="" placeholder="Leo"  onChange={this.onChange}/>
                     </InputGroup>
-                </FormGroup>
+                </FormGroup> */}
+                
+                <AutocompleteWithPrompt handleSubmit = {this.handleSubmitArtist} entries = {artist.artists} entryType='Artist'   onChange={this.onChange}/>
+                
                 <FormGroup>
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">Description</InputGroupAddon>
                         <Input type="textarea" name="description" defaultValue={this.state.description} id="" placeholder="The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Considered an archetypal masterpiece of the Italian Renaissance, it has been described as 'the best known, the most visited, the most written about, the most sung about, the most parodied work of art in the world'." onChange={this.onChange}/>
                     </InputGroup>
                 </FormGroup>
-                <FormGroup>
+                {/* <FormGroup>
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">Publisher</InputGroupAddon>
                         <Input type="text" name="publisher" defaultValue={this.state.publisher} id="" placeholder="Best paintings AG"  onChange={this.onChange}/>
                     </InputGroup>
-                </FormGroup>
+                </FormGroup> */}
+                <AutocompleteWithPrompt handleSubmit = {this.handleSubmitPublisher} entries = {publisher.publishers} entryType='Publisher'   onChange={this.onChange}/>
                 <FormGroup>
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">Type</InputGroupAddon>
@@ -159,4 +186,12 @@ class FormItem extends Component {
     }
 }
 
-export default FormItem;
+
+const mapStateToProps = state => ({
+    item: state.item,
+    singleItem: state.item.singleItem,
+    artist: state.artist,
+    publisher: state.publisher
+});
+
+export default connect(mapStateToProps, { getArtists, addArtist, getPublishers, addPublisher })(FormItem);
