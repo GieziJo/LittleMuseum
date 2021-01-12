@@ -124,7 +124,7 @@ class SingleItemPage extends Component {
 
 SingleItemPage.propTypes = {
   getItem: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired
+  singleItem: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({

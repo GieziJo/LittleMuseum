@@ -1,8 +1,22 @@
-import { GET_ITEM, GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from './types'
+import { GET_ITEM, GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, GET_ITEMS_ARTIST_ID, GET_ITEMS_PUBLISHER_ID } from './types'
 
 export const getItems = () => {
     return {
         type: GET_ITEMS
+    }
+}
+
+export const getItemsWithArtistID = (artist_id) => {
+    return {
+        type: GET_ITEMS_ARTIST_ID,
+        payload: artist_id
+    }
+}
+
+export const getItemsWithPublisherID = (publisher_id) => {
+    return {
+        type: GET_ITEMS_PUBLISHER_ID,
+        payload: publisher_id
     }
 }
 

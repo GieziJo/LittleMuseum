@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
-import {
-    Form,
-    FormGroup,
-    Button,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup
-  } from 'reactstrap';
+// import {
+//     Form,
+//     // FormGroup,
+//     // Button,
+//     // Input,
+//     // InputGroupAddon,
+//     // InputGroupText,
+//     // InputGroup
+//   } from 'reactstrap';
   import { connect } from 'react-redux';
   import AutocompleteWithPrompt from './AutocompleteWithPrompt';
   import {getArtists, addArtist} from '../actions/artistActions';
   import {getPublishers, addPublisher} from '../actions/publisherActions';
+//   import Input from '@material-ui/core/Input';
+  import TextField from '@material-ui/core/TextField';
+  
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
 
 
 class FormItem extends Component {
@@ -30,7 +40,7 @@ class FormItem extends Component {
         currency: '',
         caracteristics: '',
         year: '',
-        signed: '',
+        signed: false,
         image_url: ''
     }
 
@@ -60,10 +70,24 @@ class FormItem extends Component {
     }
 
     onChange = (e) => {
+        console.log(e.target.value);
         this.setState({
             [e.target.name]: e.target.value
         });
     };
+
+    onChangeCheck = (e) => {
+        this.setState({
+            [e.target.name]: e.target.checked
+        });
+    };
+
+    onChangeID = (e) => {
+        this.setState({
+            [e.target.name + "_id"]: e.target.id,
+        })
+        this.onChange(e);
+    }
 
     onSubmit = e => {
         e.preventDefault();
@@ -73,14 +97,16 @@ class FormItem extends Component {
     handleSubmitArtist = (data) => {
       this.props.addArtist({
         name: data.name,
-        description: data.description
+        description: data.description,
+        id: data.id
       })
     }
 
     handleSubmitPublisher = (data) => {
       this.props.addPublisher({
         name: data.name,
-        description: data.description
+        description: data.description,
+        id: data.id
       })
     }
 
@@ -89,55 +115,23 @@ class FormItem extends Component {
         const artist = this.props.artist;
         const publisher = this.props.publisher;
         return(
-            <Form onSubmit={this.onSubmit}>
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Title</InputGroupAddon>
-                        <Input type="text" name="title" defaultValue={this.state.title} id="" placeholder="Joconde" required onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup>
-                {/* <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Artist</InputGroupAddon>
-                        <Input type="text" name="artist" defaultValue={this.state.artist} id="" placeholder="Leo"  onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup> */}
+            // <Form onSubmit={this.onSubmit}>
+            <div>
+                <TextField label="Title" name="title" value={this.state.title??""} variant="filled" required onChange={this.onChange} fullWidth size="small"/>
                 
-                <AutocompleteWithPrompt handleSubmit = {this.handleSubmitArtist} entries = {artist.artists} entryType='Artist'   onChange={this.onChange}/>
+                <AutocompleteWithPrompt handleSubmit = {this.handleSubmitArtist} entries = {artist.artists} entryType='Artist' name='artist' onChange={this.onChangeID} value={this.state.artist??""}/>
                 
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Description</InputGroupAddon>
-                        <Input type="textarea" name="description" defaultValue={this.state.description} id="" placeholder="The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Considered an archetypal masterpiece of the Italian Renaissance, it has been described as 'the best known, the most visited, the most written about, the most sung about, the most parodied work of art in the world'." onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup>
-                {/* <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Publisher</InputGroupAddon>
-                        <Input type="text" name="publisher" defaultValue={this.state.publisher} id="" placeholder="Best paintings AG"  onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup> */}
-                <AutocompleteWithPrompt handleSubmit = {this.handleSubmitPublisher} entries = {publisher.publishers} entryType='Publisher'   onChange={this.onChange}/>
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Type</InputGroupAddon>
-                        <Input type="text" name="type" defaultValue={this.state.type} id="" placeholder="Painting"  onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Size</InputGroupAddon>
-                        <Input type="text" name="size" defaultValue={this.state.size} id="" placeholder="73x53cm"  onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Serial Number</InputGroupAddon>
-                        <Input type="text" name="serial_number" defaultValue={this.state.serial_number} id="" placeholder="xn-347"  onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup>
+                <TextField label="Description" name="description" value={this.state.description??""} variant="filled" onChange={this.onChange} fullWidth multiline size="small"/>
 
-                <FormGroup>
+                <AutocompleteWithPrompt handleSubmit = {this.handleSubmitPublisher} entries = {publisher.publishers} entryType='Publisher' name='publisher' onChange={this.onChangeID}  value={this.state.publisher??""}/>
+
+                <TextField label="Type" name="type" value={this.state.type??""} variant="filled" onChange={this.onChange} fullWidth size="small"/>
+
+                <TextField label="Size" name="size" value={this.state.size??""} variant="filled" onChange={this.onChange} fullWidth size="small"/>
+
+                <TextField label="Serial Number" name="serial_number" value={this.state.serial_number??""} variant="filled" onChange={this.onChange} fullWidth size="small"/>
+
+                {/* <FormGroup>
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">Price</InputGroupAddon>
                         <Input type="number" name="price" defaultValue={this.state.price} id="" placeholder="9999999" min="0" onChange={this.onChange}/>
@@ -149,39 +143,42 @@ class FormItem extends Component {
                             <option>¥</option>
                         </Input>
                     </InputGroup>
-                </FormGroup>
+                </FormGroup> */}
 
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Caracteristics</InputGroupAddon>
-                        <Input type="textarea" name="caracteristics" defaultValue={this.state.caracteristics} id="" placeholder="Freaking old"  onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup>
+                        {/* <InputGroupAddon addonType="prepend">Price</InputGroupAddon>
+                        <Input type="number" name="price" defaultValue={this.state.price} id="" placeholder="9999999" min="0" onChange={this.onChange}/> */}
+                        {/* <FormGroup row fullWidth> */}
 
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Year</InputGroupAddon>
-                        <Input type="number" name="year" defaultValue={this.state.year} id="" placeholder="1503"  onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup>
-                
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Signed</InputGroupAddon>
-                        <InputGroupText>
-                            <Input addon type="checkbox" name="signed" defaultValue={this.state.signed} id="" onChange={this.onChange}/>
-                        </InputGroupText>
-                    </InputGroup>
-                </FormGroup>
+                        <TextField label="Price" name="price" type="number" min="0" value={this.state.price  ?? ""} variant="filled" onChange={this.onChange} fullWidth size="small" 
+                        InputProps={{
+                        endAdornment: (
+                        <InputAdornment position='end'>
+                        <Select name="currency" value={this.state.currency  ?? ""} onChange={this.onChange} variant="standard" size="small" style={{marginLeft:10}}>
+                            <MenuItem value=""></MenuItem >
+                            <MenuItem value="CHF">CHF</MenuItem >
+                            <MenuItem value="$">$</MenuItem >
+                            <MenuItem value="€">€</MenuItem >
+                            <MenuItem value="£">£</MenuItem >
+                            <MenuItem value="¥">¥</MenuItem >
+                        </Select>
+                        </InputAdornment>
+                        )
+                        }}/>
 
-                <FormGroup>
-                    <InputGroup>
-                        <InputGroupAddon addonType="prepend">Image url</InputGroupAddon>
-                        <Input type="url" name="image_url" defaultValue={this.state.image_url} id="" placeholder="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1024px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"  onChange={this.onChange}/>
-                    </InputGroup>
-                </FormGroup>
-                <Button block>{this.props.buttonLabel}</Button>
-            </Form>
+                <TextField label="Caracteristics" name="caracteristics" value={this.state.caracteristics??""} variant="filled" onChange={this.onChange} fullWidth multiline size="small"/>
+
+                <TextField label="Year" name="year" type="number" value={this.state.year??""} variant="filled" onChange={this.onChange} fullWidth size="small"/>
+
+                <FormControlLabel
+                    control={<Checkbox  value={this.state.signed??false}  checked={this.state.signed??false} onChange={this.onChangeCheck} name="signed" />}
+                    label="Signed" labelPlacement="start"
+                />
+
+                <TextField label="Image Url" name="image_url" type="url" value={this.state.image_url??""} variant="filled" onChange={this.onChange} fullWidth size="small"/>
+
+                <Button fullWidth variant="contained" onClick={this.onSubmit}>{this.props.buttonLabel}</Button>
+                </div>
+            // {/* </Form> */}
         );
     }
 }

@@ -5,7 +5,7 @@ import { GET_ARTISTS, GET_ARTIST, ADD_ARTIST, EDIT_ARTIST, DELETE_ARTIST } from 
 const initialState = {
     artists: [
         { id: uuid(), name: 'Bla', description: 'you know'},
-        { id: uuid(), name: 'Michael Angelo', description: 'Some rando'},
+        { id: '2', name: 'Michael Angelo', description: 'Some rando'},
         { id: uuid(), name: 'That makes sense', description: 'Jep'},
         { id: uuid(), name: 'Banski', description: 'Some other rando'},
         { id: uuid(), name: 'Hmm, just a name?'},

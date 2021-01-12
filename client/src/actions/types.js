@@ -4,6 +4,8 @@ export const GET_ITEM = 'GET_ITEM';
 export const ADD_ITEM = 'ADD_ITEM';
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
+export const GET_ITEMS_ARTIST_ID = 'GET_ITEMS_ARTIST_ID';
+export const GET_ITEMS_PUBLISHER_ID = 'GET_ITEMS_PUBLISHER_ID';
 
 // Artists
 export const GET_ARTISTS = 'GET_ARTISTS';
