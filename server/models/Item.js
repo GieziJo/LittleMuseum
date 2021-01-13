@@ -7,20 +7,16 @@ const ItemSchema = new Schema({
         type: String,
         require: true
     },
-    artist: {
-        type: String
-    },
-    artist_id: {
-        type: String
+    artist:{
+        type: Schema.Types.ObjectId,
+        ref: 'artist'
     },
     descrpition: {
         type: String
     },
-    publisher: {
-        type: String
-    },
-    publisher_id: {
-        type: String
+    publisher:{
+        type: Schema.Types.ObjectId,
+        ref: 'publisher'
     },
     type: {
         type: String
