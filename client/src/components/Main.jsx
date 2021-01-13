@@ -6,6 +6,8 @@ import About from './About';
 import AddItem from './AddItem';
 import SingleItemPage from './SingleItemPage';
 import EditItem from './EditItem';
+import SingleArtistPage from './SingleArtistPage';
+import EditArtist from './EditArtist';
 
 const Main = () => (
     <main>
@@ -15,6 +17,8 @@ const Main = () => (
             <Route exact path='/addItem' component={AddItem} />
             <Route exact path="/items/:itemId" component={SingleItemPage} />
             <Route exact path="/items/edit/:itemId" component={EditItem} />
+            <Route exact path="/artists/:artistId" component={SingleArtistPage} />
+            <Route exact path="/artists/edit/:artistId" component={EditArtist} />
         </Switch>
     </main>
 )

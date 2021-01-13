@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import {addItem} from '../actions/itemActions';
-import uuid from 'react-uuid';
+import {getItem, editItem} from '../actions/itemActions';
 import FormItem from './FormItem';
 
-class AddItem extends Component {
+class EditItem extends Component {
+    
 
+    componentDidMount(){
+        const { itemId } = this.props.match.params;
+        this.props.getItem(itemId);
+    }
 
     onSubmit = (data) => {
 
         const newItem = {
-            id: uuid(),
+            id: this.props.singleItem.id,
             title: data.title,
             artist: data.artist,
             artist_id: data.artist_id,
@@ -30,24 +34,35 @@ class AddItem extends Component {
         }
 
         // add item via addItem action
-        this.props.addItem(newItem);
+        this.props.editItem(newItem);
 
         const { history } = this.props;
         history.push('/items/' + newItem.id);
     }
 
     render() {
+        const singleItem = this.props.singleItem;
+        
+    
+        if (!singleItem) {
+            return (
+            <section>
+                <h2>Item not found!</h2>
+            </section>
+            )
+        }
         return(
             <div>
-                <h1>Add New Item</h1>
-                <FormItem onSubmit = {this.onSubmit}  buttonLabel='Add Item'/>
+                <h1>Edit Item</h1>
+                <FormItem onSubmit = {this.onSubmit} singleItem = {singleItem} buttonLabel='Update Item'/>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    item: state.item
+    item: state.item,
+    singleItem: state.item.singleItem
 });
 
-export default connect(mapStateToProps, { addItem })(AddItem);
+export default connect(mapStateToProps, { editItem, getItem })(EditItem);

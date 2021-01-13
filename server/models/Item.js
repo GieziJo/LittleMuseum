@@ -10,10 +10,16 @@ const ItemSchema = new Schema({
     artist: {
         type: String
     },
+    artist_id: {
+        type: String
+    },
     descrpition: {
         type: String
     },
     publisher: {
+        type: String
+    },
+    publisher_id: {
         type: String
     },
     type: {

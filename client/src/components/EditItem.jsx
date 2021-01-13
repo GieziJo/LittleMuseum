@@ -18,8 +18,10 @@ class EditItem extends Component {
             id: this.props.singleItem.id,
             title: data.title,
             artist: data.artist,
+            artist_id: data.artist_id,
             description: data.description,
             publisher: data.publisher,
+            publisher_id: data.publisher_id,
             type: data.type,
             size: data.size,
             serial_number: data.serial_number,
@@ -60,7 +62,7 @@ class EditItem extends Component {
 
 const mapStateToProps = state => ({
     item: state.item,
-    singleItem: state.item.singleItem
+    singleItem: state.item.singleItem,
 });
 
-export default connect(mapStateToProps, { editItem, getItem })(EditItem);
+export default connect(mapStateToProps, { editItem, getItem})(EditItem);
